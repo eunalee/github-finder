@@ -15,6 +15,8 @@
     />
     <link rel="stylesheet" href="css/style.css" />
 
+    <script defer src="js/main.js"></script>
+
     <title>GitHub Finder</title>
   </head>
   <body>
@@ -32,7 +34,7 @@
       <section class="main__content">
         <div class="search__container">
           <span class="search__blank">Please enter something</span>
-          <form class="search__form">
+          <form class="search__form" onsubmit="return false;">
             <span class="search__icon"><i class="fa fa-search"></i></span>
             <input
               type="search"
@@ -40,6 +42,7 @@
               id="search__box"
               placeholder="Search..."
             />
+            <!-- <input type="submit" id="search__submit" /> -->
           </form>
           <div class="search__result">
             <div class="search__result--box">
