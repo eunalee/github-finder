@@ -20,6 +20,30 @@ searchBox.addEventListener("keypress", (event) => {
     } else {
       // select user's data with keyword using Github API
       // fetch()
+      const resultBox = document.createElement("div");
+      resultBox.setAttribute("class", "search__result--box");
+
+      const resultItem = document.createElement("div");
+      resultItem.setAttribute("class", "search__result--item");
+
+      const img = document.createElement("img");
+      img.setAttribute("src");
+      img.setAttribute("alt");
+
+      const name = document.createElement("span");
+      span.setAttribute("class", "item__info");
+
+      const userList = getUserList(keyword);
+      console.log(typeof userList);
+      console.log(userList);
     }
   }
 });
+
+// getUserList
+const getUserList = function (keyword) {
+  return fetch(`https://api.github.com/search/users?q=${keyword}`)
+    .then((response) => response.json())
+    .then((data) => console.log(data.items))
+    .catch(console.log);
+};
