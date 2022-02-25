@@ -10,7 +10,7 @@ searchBox.addEventListener("focus", () => {
   }
 });
 
-searchBox.addEventListener("keypress", (event) => {
+searchBox.addEventListener("keypress", async (event) => {
   // when the enter key is pressed
   if (event.key === "Enter") {
     const keyword = document.getElementById("search__box").value;
@@ -18,32 +18,33 @@ searchBox.addEventListener("keypress", (event) => {
       // there is no keyword
       document.querySelector(".search__blank").style.display = "block";
     } else {
-      // select user's data with keyword using Github API
-      // fetch()
-      const resultBox = document.createElement("div");
-      resultBox.setAttribute("class", "search__result--box");
+      // userList
+      const userList = await getUserList(keyword);
 
-      const resultItem = document.createElement("div");
-      resultItem.setAttribute("class", "search__result--item");
+      // create a searchBox
+      const searchResult = document.querySelector(".search__result");
+      let strHtml = "";
+      for (let i = 0; i < userList.length; i++) {
+        strHtml += `<div class="search__result--box">`;
+        strHtml += `  <div class="search__result--item">`;
+        strHtml += `    <img src="${userList[i].avatar_url}" alt="${userList[i].login}" />`;
+        strHtml += `    <span class="item__info">${userList[i].login}<br />developer</span>`;
+        strHtml += `  </div>`;
+        strHtml += `</div>`;
+      }
 
-      const img = document.createElement("img");
-      img.setAttribute("src");
-      img.setAttribute("alt");
-
-      const name = document.createElement("span");
-      span.setAttribute("class", "item__info");
-
-      const userList = getUserList(keyword);
-      console.log(typeof userList);
-      console.log(userList);
+      searchResult.innerHTML = strHtml;
     }
   }
 });
 
-// getUserList
-const getUserList = function (keyword) {
-  return fetch(`https://api.github.com/search/users?q=${keyword}`)
+// get userList from Github API
+const getUserList = (keyword) => {
+  return fetch(`https://api.github.com/search/users?q=${keyword}`, {
+    headers: {
+      Authorization: `token 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`,
+    },
+  })
     .then((response) => response.json())
-    .then((data) => console.log(data.items))
-    .catch(console.log);
+    .then((data) => data.items);
 };

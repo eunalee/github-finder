@@ -85,6 +85,10 @@ ul {
   outline: none;
 }
 
+#search__submit {
+  display: none;
+}
+
 .search__result {
   display: grid;
   grid-template-rows: max-content;
