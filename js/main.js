@@ -23,17 +23,32 @@ searchBox.addEventListener("keypress", async (event) => {
 
       // create a searchBox
       const searchResult = document.querySelector(".search__result");
-      let strHtml = "";
-      for (let i = 0; i < userList.length; i++) {
-        strHtml += `<div class="search__result--box">`;
-        strHtml += `  <div class="search__result--item">`;
-        strHtml += `    <img src="${userList[i].avatar_url}" alt="${userList[i].login}" />`;
-        strHtml += `    <span class="item__info">${userList[i].login}<br />developer</span>`;
-        strHtml += `  </div>`;
-        strHtml += `</div>`;
-      }
 
-      searchResult.innerHTML = strHtml;
+      for (let i = 0; i < userList.length; i++) {
+        const resultBox = document.createElement("div");
+        resultBox.setAttribute("class", "search__result--box");
+
+        const resultItem = document.createElement("div");
+        resultItem.setAttribute("class", "search__result--item");
+
+        const img = document.createElement("img");
+        img.setAttribute("src", userList[i].avatar_url);
+        img.setAttribute("alt", userList[i].login);
+
+        const name = document.createElement("span");
+        name.setAttribute("class", "item__info");
+        name.innerHTML = userList[i].login;
+
+        // search__result--item
+        resultItem.appendChild(img);
+        resultItem.appendChild(name);
+
+        // search__result--box
+        resultBox.appendChild(resultItem);
+
+        // search__result
+        searchResult.appendChild(resultBox);
+      }
     }
   }
 });
