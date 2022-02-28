@@ -57,7 +57,7 @@ searchBox.addEventListener("keypress", async (event) => {
 const getUserList = (keyword) => {
   return fetch(`https://api.github.com/search/users?q=${keyword}`, {
     headers: {
-      Authorization: `token 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`,
+      Authorization: `token `,
     },
   })
     .then((response) => response.json())
