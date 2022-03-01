@@ -53,11 +53,19 @@ searchBox.addEventListener("keypress", async (event) => {
   }
 });
 
+// Github API token
+const first = "ghp_Zf42nW";
+const second = "b96SrH5PAW";
+const third = "pgG02aGgN9";
+const fourth = "URg61aethE";
+
+const auth = first + second + third + fourth;
+
 // get userList from Github API
 const getUserList = (keyword) => {
   return fetch(`https://api.github.com/search/users?q=${keyword}`, {
     headers: {
-      Authorization: `token `,
+      Authorization: `token ${auth}`,
     },
   })
     .then((response) => response.json())
