@@ -1,6 +1,7 @@
 "use strict";
 
 const searchBox = document.getElementById("search__box");
+const searchResult = document.querySelector(".search__result");
 
 // when the searchBox is focused, a text disappear
 searchBox.addEventListener("focus", () => {
@@ -11,6 +12,9 @@ searchBox.addEventListener("focus", () => {
 });
 
 searchBox.addEventListener("keypress", async (event) => {
+  // clear the searchBox
+  searchResult.innerHTML = "";
+
   // when the enter key is pressed
   if (event.key === "Enter") {
     const keyword = document.getElementById("search__box").value;
@@ -21,15 +25,16 @@ searchBox.addEventListener("keypress", async (event) => {
       // userList
       const userList = await getUserList(keyword);
 
-      // create a searchBox
-      const searchResult = document.querySelector(".search__result");
-
       for (let i = 0; i < userList.length; i++) {
         const resultBox = document.createElement("div");
         resultBox.setAttribute("class", "search__result--box");
 
         const resultItem = document.createElement("div");
         resultItem.setAttribute("class", "search__result--item");
+
+        const link = document.createElement("a");
+        link.setAttribute("href", userList[i].html_url);
+        link.setAttribute("target", "_blank");
 
         const img = document.createElement("img");
         img.setAttribute("src", userList[i].avatar_url);
@@ -39,9 +44,11 @@ searchBox.addEventListener("keypress", async (event) => {
         name.setAttribute("class", "item__info");
         name.innerHTML = userList[i].login;
 
+        link.appendChild(img);
+        link.appendChild(name);
+
         // search__result--item
-        resultItem.appendChild(img);
-        resultItem.appendChild(name);
+        resultItem.appendChild(link);
 
         // search__result--box
         resultBox.appendChild(resultItem);
