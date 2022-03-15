@@ -3,28 +3,36 @@
 const searchBox = document.getElementById("search__box");
 const searchResult = document.querySelector(".search__result");
 
-// when the searchBox is focused, a text disappear
+// 검색창 포커스
 searchBox.addEventListener("focus", () => {
   const searchBlankText = document.querySelector(".search__blank");
+
+  // 노출되는 경고문구 제거 (검색어가 없는 경우)
   if (searchBlankText.style.display === "block") {
     searchBlankText.style.display = "none";
   }
 });
 
+// 검색
 searchBox.addEventListener("keypress", async (event) => {
-  // clear the searchBox
+  // 검색결과 제거
   searchResult.innerHTML = "";
 
-  // when the enter key is pressed
+  // 엔터키 검색
   if (event.key === "Enter") {
     const keyword = document.getElementById("search__box").value;
+
+    // 검색어가 없는 경우
     if (keyword === "") {
-      // there is no keyword
+      // 경고문구 노출
       document.querySelector(".search__blank").style.display = "block";
-    } else {
-      // userList
+    }
+    // 검색어가 있는 경우
+    else {
+      // 사용자 정보 조회
       const userList = await getUserList(keyword);
 
+      // 검색 결과 그리기
       for (let i = 0; i < userList.length; i++) {
         const resultBox = document.createElement("div");
         resultBox.setAttribute("class", "search__result--box");
@@ -68,7 +76,7 @@ const fourth = "URg61aethE";
 
 const auth = first + second + third + fourth;
 
-// get userList from Github API
+// 사용자 정보 가져오기 (from Github API)
 const getUserList = (keyword) => {
   return fetch(`https://api.github.com/search/users?q=${keyword}`, {
     headers: {
